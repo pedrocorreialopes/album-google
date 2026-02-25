@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualizador de álbuns do Google Photos - Organize e visualize suas fotos compartilhadas">
+    <meta property="og:title" content="Album Viewer - Google Photos">
+    <meta property="og:description" content="Visualize álbuns compartilhados do Google Photos em um carrossel elegante">
+    <meta property="og:type" content="website">
+    
+    <title>Album Viewer - Visualizador de Álbuns</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="css/style.css" as="style">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Album Viewer",
+        "description": "Visualizador de álbuns do Google Photos",
+        "applicationCategory": "PhotoApplication",
+        "operatingSystem": "Web"
+    }
+    </script>
+</head>
+<body>
+    <header class="header" role="banner">
+        <div class="container">
+            <h1 class="header__title">
+                <i class="fas fa-images" aria-hidden="true"></i>
+                Album Viewer
+            </h1>
+            <p class="header__subtitle">Visualize álbuns compartilhados do Google Photos</p>
+        </div>
+    </header>
+
+    <main class="main" role="main">
+        <section class="add-album" aria-labelledby="add-album-title">
+            <div class="container">
+                <h2 id="add-album-title" class="visually-hidden">Adicionar Novo Álbum</h2>
+                <div class="add-album__form">
+                    <div class="input-group">
+                        <label for="album-url" class="input-group__label">
+                            <i class="fas fa-link" aria-hidden="true"></i>
+                            Link do Google Photos
+                        </label>
+                        <input 
+                            type="url" 
+                            id="album-url" 
+                            class="input-group__input" 
+                            placeholder="https://photos.app.goo.gl/..."
+                            aria-describedby="url-help"
+                        >
+                        <small id="url-help" class="input-group__help">
+                            Cole o link compartilhado do Google Photos aqui
+                        </small>
+                    </div>
+                    <button type="button" class="btn btn--primary" id="add-album-btn">
+                        <i class="fas fa-plus" aria-hidden="true"></i>
+                        Adicionar Álbum
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="albums" aria-labelledby="albums-title">
+            <div class="container">
+                <h2 id="albums-title" class="section__title">
+                    <i class="fas fa-photo-video" aria-hidden="true"></i>
+                    Meus Álbuns
+                </h2>
+                
+                <div class="albums__grid" id="albums-container" role="region" aria-label="Grade de álbuns">
+                    <!-- Álbuns serão carregados dinamicamente aqui -->
+                </div>
+
+                <div class="loading" id="loading" aria-hidden="true">
+                    <div class="loading__spinner"></div>
+                    <p class="loading__text">Carregando álbuns compartilhados...</p>
+                    <div class="loading__progress" id="loading-progress" style="display: none;">
+                        <span id="loaded-count">0</span> de <span id="total-count">8</span> álbuns carregados
+                    </div>
+                </div>
+
+                <div class="empty-state" id="empty-state" aria-hidden="true">
+                    <div class="empty-state__icon">
+                        <i class="fas fa-images" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="empty-state__title">Nenhum álbum encontrado</h3>
+                    <p class="empty-state__text">Adicione um link do Google Photos para começar</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal do Carrossel -->
+    <div class="modal" id="carousel-modal" role="dialog" aria-labelledby="carousel-title" aria-hidden="true">
+        <div class="modal__backdrop" data-modal-close></div>
+        <div class="modal__content">
+            <header class="modal__header">
+                <h3 id="carousel-title" class="modal__title">Visualizador de Fotos</h3>
+                <button type="button" class="modal__close" data-modal-close aria-label="Fechar">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </header>
+            
+            <div class="carousel" role="region" aria-label="Carrossel de fotos">
+                <button type="button" class="carousel__nav carousel__nav--prev" id="carousel-prev" aria-label="Foto anterior">
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                
+                <div class="carousel__container">
+                    <div class="carousel__track" id="carousel-track">
+                        <!-- Imagens do carrossel serão carregadas aqui -->
+                    </div>
+                </div>
+                
+                <button type="button" class="carousel__nav carousel__nav--next" id="carousel-next" aria-label="Próxima foto">
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+                
+                <div class="carousel__indicators" id="carousel-indicators" role="tablist" aria-label="Indicadores de fotos">
+                    <!-- Indicadores serão gerados dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scripts -->
+    <script src="js/app.js" defer></script>
+</body>
+</html>

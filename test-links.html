@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Links - Album Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .link-test {
+            background: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .link-test a {
+            color: #4285f4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .link-test a:hover {
+            text-decoration: underline;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .status.success {
+            background: #4caf50;
+            color: white;
+        }
+        .status.error {
+            background: #f44336;
+            color: white;
+        }
+        .status.pending {
+            background: #ff9800;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Teste de Links do Google Photos</h1>
+    <p>Testando os links fornecidos para verificar acessibilidade:</p>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/cJ5F4g1Tou9qG49f9" target="_blank">Álbum 1: Memórias Especiais</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/7Bee33No8qgvmfCdA" target="_blank">Álbum 2: Paisagens & Natureza</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/vcaa1EEHVnbzJQVWA" target="_blank">Álbum 3: Família & Amigos</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/3nUJU3k2H9wkDSXx6" target="_blank">Álbum 4: Viagens & Aventuras</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/87pQ4p6GTpktUK3A6" target="_blank">Álbum 5: Eventos Especiais</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/oCXm1VuaSURH3zV2A" target="_blank">Álbum 6: Arte & Criatividade</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/SuB1VgMZGXNCsunt5" target="_blank">Álbum 7: Culinária & Gastronomia</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+    
+    <div class="link-test">
+        <a href="https://photos.app.goo.gl/gBXmt8DcNLkrFMCL6" target="_blank">Álbum 8: Estilo & Moda</a>
+        <span class="status pending">Verificando...</span>
+    </div>
+
+    <script>
+        // Função simples para verificar se os links são válidos
+        function checkLinks() {
+            const links = document.querySelectorAll('.link-test a');
+            
+            links.forEach((link, index) => {
+                const status = link.parentElement.querySelector('.status');
+                
+                // Testa se o link pode ser acessado
+                fetch(link.href, { method: 'HEAD', mode: 'no-cors' })
+                    .then(() => {
+                        status.textContent = 'Acessível';
+                        status.className = 'status success';
+                    })
+                    .catch(() => {
+                        status.textContent = 'Pode requerer login';
+                        status.className = 'status error';
+                    });
+            });
+        }
+        
+        // Verifica após 1 segundo
+        setTimeout(checkLinks, 1000);
+    </script>
+</body>
+</html>
